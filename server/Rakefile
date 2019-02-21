@@ -1,0 +1,30 @@
+require_relative 'lib/iot_garden'
+
+namespace :db do
+
+  desc "Creates database"
+  task :create do
+    print "Creating database..."
+    IoTGarden::DB.create
+    puts "\u2713"
+  end
+
+  desc "Drops database"
+  task :drop do
+    print "Dropping database..."
+    IoTGarden::DB.drop
+    puts "\u2713"
+  end
+
+  desc "Loads Stations"
+  task :load do
+    print "Loading stations..."
+    IoTGarden::DB.seed
+    puts "\u2713"
+  end
+
+  desc "Drops database if exists, create new one and load stations"
+  task :reset => %i[ drop create load ] do
+    puts "Database resetted!"
+  end
+ end
