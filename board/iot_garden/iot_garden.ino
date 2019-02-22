@@ -8,14 +8,17 @@ class WateringStation
   byte waterPumpPin;
   byte soilHumiditySensorPin;
 
-  int lowSoilHumidity  = 30;
-  int highSoilHumidity = 85;
-  int wateringTime     = 1000;
+  int lowSoilHumidity;
+  int highSoilHumidity;
+  int wateringTime;
 
   public:
     String name;
 
     WateringStation(){
+      this->lowSoilHumidity  = 30;
+      this->highSoilHumidity = 85;
+      this->wateringTime     = 1000;
     }
   
     WateringStation(int uid, byte waterPumpPin, byte soilHumiditySensorPin)
@@ -23,6 +26,10 @@ class WateringStation
       this->uid                   = uid;
       this->waterPumpPin          = waterPumpPin;
       this->soilHumiditySensorPin = soilHumiditySensorPin;
+
+      this->lowSoilHumidity  = 30;
+      this->highSoilHumidity = 85;
+      this->wateringTime     = 1000;
     }
 
     void init() {
@@ -90,14 +97,17 @@ class WateringStation
 
 class EnvironmentStation
 {
-  int normalAmbientHumidity  = 40;
-  int highAmbientTemperature = 25;
-  int maxAmbientTemperature  = 30;
+  int normalAmbientHumidity;
+  int highAmbientTemperature;
+  int maxAmbientTemperature;
 
   DHT *dhtSensor;
 
   public:
     EnvironmentStation(){
+      this->normalAmbientHumidity  = 40;
+      this->highAmbientTemperature = 30;
+      this->maxAmbientTemperature  = 30;
     }
 
     EnvironmentStation(byte pin) {
@@ -167,7 +177,7 @@ class IoTGarden
     IoTGarden() {
       this->isTurnOn              = false;
       this->wateringStationsCount = 0;
-      this->checkStationsDelay    = 3000;
+      this->checkStationsDelay    = 10000;
     }
 
     void init(){

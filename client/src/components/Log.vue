@@ -6,14 +6,7 @@
         <v-timeline align-top dense>
 
           <v-timeline-item small icon="fa-leaf" color="pink" v-for="logEntry in log">
-            <v-layout pt-3>
-              <v-flex xs3>
-                {{logEntry.created_at}}
-              </v-flex>
-              <v-flex xs4>
-                <strong>{{logEntry.message}}</strong>
-              </v-flex>
-            </v-layout>
+            <log-entry :logEntry="logEntry"></log-entry>
           </v-timeline-item>
 
         </v-timeline>
@@ -24,9 +17,14 @@
 
 <script>
 
+import LogEntry from '@/components/LogEntry'
+
 export default {
   name: 'log',
-  props: ['log']
+  props: ['log'],
+  components: {
+    LogEntry
+  }
 }
 
 </script> 

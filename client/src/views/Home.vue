@@ -49,11 +49,11 @@ export default {
   methods: {
     pollData() {
       axios
-        .get('http://localhost:4567/api/water-stations')
+        .get('http://raspberry-pi:4567/api/water-stations')
         .then(response => (this.stations = response.data))
 
       axios
-        .get('http://localhost:4567/api/system/log')
+        .get('http://raspberry-pi:4567/api/system/log')
         .then(response => (this.log = response.data))
     },
 
@@ -64,12 +64,12 @@ export default {
     power(){
       if(this.isTurnedOn){
         axios
-          .post('http://localhost:4567/api/system/turn-off')
+          .post('http://raspberry-pi:4567/api/system/turn-off')
           .then(response => (this.isTurnedOn = false))
       }
       else{
         axios
-          .post('http://localhost:4567/api/system/turn-on')
+          .post('http://raspberry-pi:4567/api/system/turn-on')
           .then(response => (this.isTurnedOn = true))
       }
     }

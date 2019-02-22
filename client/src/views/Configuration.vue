@@ -44,7 +44,7 @@ export default {
 
   mounted() {
     axios
-      .get('http://localhost:4567/api/environment-station')
+      .get('http://raspberry-pi:4567/api/environment-station')
       .then((response) => {
         this.normalHumidity  = response.data["normal_humidity"]
         this.highTemperature = response.data["high_temperature"]
@@ -57,7 +57,7 @@ export default {
       this.$router.push('/')
     },
     submit(){
-      axios.post('http://localhost:4567/api/environment-station', {
+      axios.post('http://raspberry-pi:4567/api/environment-station', {
         normal_humidity:  this.normalHumidity,
         high_temperature: this.highTemperature,
         max_temperature:  this.maxTemperature

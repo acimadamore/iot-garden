@@ -4,25 +4,25 @@
     <form>
       <v-text-field
         v-model="name"
-        label="Name"
+        label="Nombre"
         required
       ></v-text-field>
 
       <v-text-field
         v-model.number="minHumidity"
-        label="Low humidity level"
+        label="Nivel minimo de humedad"
         required
       ></v-text-field>
 
       <v-text-field
         v-model.number="maxHumidity"
-        label="High humidity level"
+        label="Nivel maximo de humedad"
         required
       ></v-text-field>
 
       <v-text-field
         v-model.number="watering"
-        label="Watering time"
+        label="Tiempo de regado(ms)"
         required
       ></v-text-field>
 
@@ -52,7 +52,7 @@ export default {
 
   mounted() {
     axios
-      .get(`http://localhost:4567/api/water-stations/${this.uid}`)
+      .get(`http://raspberry-pi:4567/api/water-stations/${this.uid}`)
       .then((response) => {
         this.name         = response.data["name"]
         this.minHumidity  = response.data["low_soil_humidity"]
@@ -66,7 +66,7 @@ export default {
       this.$router.push('/')
     },
     submit(){
-      axios.post(`http://localhost:4567/api/water-stations/${this.uid}`, {
+      axios.post(`http://raspberry-pi:4567/api/water-stations/${this.uid}`, {
         _method:     'patch',
         name:        this.name,
         minHumidity: this.minHumidity,

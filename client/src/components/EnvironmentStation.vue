@@ -27,7 +27,7 @@ export default {
   methods: {
     pollData() {
       axios
-        .get('http://localhost:4567/api/environment-station')
+        .get('http://raspberry-pi:4567/api/environment-station')
         .then(response => (this.environment = response.data))
     },
 

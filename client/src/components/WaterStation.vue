@@ -23,6 +23,12 @@
                 {{station.soil_humidity}}%
               </v-progress-circular>
             </v-flex>
+            <v-flex xs6>
+              <p>Última lectura: {{formattedLastCheckedAt}}</p>
+              <p>Último regado: {{formattedLastWateredAt}}</p>
+              <p>Nivel minimo de humedad: {{station.low_soil_humidity}}%</p>
+              <p>Nivel maximo de hummedad: {{station.high_soil_humidity}}%</p>
+            </v-flex>
           </v-layout>
         </v-container>
       </v-card-text>
@@ -43,15 +49,28 @@
 <script>
 
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   name: 'water-station',
   props: ['station'],
   methods: {
     water() {
-      axios.get(`http://localhost:8080/api/water-stations/${this.station.uid}/water`)
+      axios
+        .get(`http://raspberry-pi:4567/api/water-stations/${this.station.uid}/water`)
+        .then(() => {alert(`${this.station.name} watered!`)})
+    }
+  },
+  computed: {
+    formattedLastCheckedAt(){
+      let m = moment.utc(this.station.last_checked_at, 'YYYY-MM-DD HH:mm:ss')
 
-      alert(`${this.station.name} watered!`)
+      return m.isValid() ? m.format('HH:mm:ss') : "SIN DATOS"
+    },
+    formattedLastWateredAt(){
+      let m = moment.utc(this.station.last_watered_at, 'YYYY-MM-DD HH:mm:ss')
+
+      return m.isValid() ? m.format('HH:mm:ss') : "SIN DATOS"
     }
   }
 }
